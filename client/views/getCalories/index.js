@@ -43,8 +43,7 @@ function setValue(event, object) {
 async function renderCalories() {
     try {
         const caloriesElement = document.getElementById("calories")
-        const response = await getCalories()
-        const calories = response.calories
+        const calories = await getCalories()
         caloriesElement.textContent = calories
         return Promise.resolve()
     }
@@ -70,7 +69,7 @@ async function getCalories() {
         })
         const json = await response.json()
         if (response.status !== 200) throw `${json.error}`
-        return Promise.resolve(json)
+        return Promise.resolve(json.calories)
     }
     catch (error) {
         return Promise.reject(error)
