@@ -12,7 +12,7 @@ export class CheckPatient {
         try {
             for (let key in this.patient) {
                 let property: Factor = this.patient[key]
-                let value: number | undefined = property.value
+                let value: number | null = property.value ? property.value : null
                 if (!value) throw `propriedade ${property.name} está indefinida`
             }
             return Promise.resolve()
