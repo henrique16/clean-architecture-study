@@ -8,6 +8,8 @@ import { deleteSavedMedia } from "./builder/deleteSavedMedia"
 import _express from "express"
 import _bodyParser from "body-parser"
 import _config from "./config/index"
+import { getItems } from "./builder/getItems"
+import { Item } from "./domain/item"
 
 function init() {
     const port = _config.app.port
@@ -24,7 +26,7 @@ function init() {
     //#endregion
     
     //#region GET CALORIES
-    app.get("/getCalories", (req, res, next) => {
+    app.get("/getCalories/view", (req, res, next) => {
         res.status(200).render(`getCalories/index.ejs`, {
             patient: new Patient(),
             fa: new FA(),
@@ -44,7 +46,7 @@ function init() {
     //#endregion
     
     //#region SET FILES
-    app.get("/setFiles", (req, res, next) => {
+    app.get("/setFiles/view", (req, res, next) => {
         res.status(200).sendFile(`${__dirname}/client/views/setFiles/index.html`)
     })
     
@@ -60,7 +62,7 @@ function init() {
     //#endregion
     
     //#region DELETE SAVED MEDIA
-    app.get("/deleteSavedMedia", (req, res, next) => {
+    app.get("/deleteSavedMedia/view", (req, res, next) => {
         res.status(200).sendfile(`${__dirname}/client/views/deleteSavedMedia/index.html`)
     })
     
@@ -75,6 +77,24 @@ function init() {
     })
     //#endregion
     
+    //#region GET ITEMS
+    app.get("/getItems/view", (req, res, next) => {
+        res.status(200).sendFile(`${__dirname}/client/views/getItems/index.html`)
+    })
+
+    app.get("/getItems/:item/:quantity", (req, res, next) => {
+        const item: Item = JSON.parse(req.params.item)
+        const quantity: number = parseInt(req.params.quantity)
+        console.log(item)
+        getItems(item, quantity)
+            .then(items => res.status(200).send({ items: items }))
+            .catch(error => {
+                console.log(error)
+                res.status(500).send({ error: "error" })
+            })
+    })
+    //#endregion
+
     app.listen(port, () => console.log(port))
 }
 

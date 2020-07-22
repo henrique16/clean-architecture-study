@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "a": "pm2 logs --lines 1",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

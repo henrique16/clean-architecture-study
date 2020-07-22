@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="quantity" type="text" placeholder="quantity" onchange="setQuantity(event)">
+    <select name="item" id="item" onchange="setItem(event)">
+        <option>Select</option>
+        <option id="A" value="A">A</option>
+        <option id="B" value="B">B</option>
+    </select>
+    <div id="content"></div>
+    <script src="/client/views/getItems/index.js"></script>
+</body>
+</html>
